@@ -14,6 +14,7 @@ router.register(r'assignments', TeacherAssignmentViewSet, basename='assignments'
 
 urlpatterns = [
     path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair_direct'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('me/', UserProfileView.as_view(), name='user_profile'),
     path('', include(router.urls)),
