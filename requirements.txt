@@ -1,0 +1,13 @@
+# Core Web Server & Reports (Always required)
+django>=5.0,<6.1
+djangorestframework>=3.14.0
+djangorestframework-simplejwt>=5.3.0
+django-cors-headers>=4.3.0
+openpyxl>=3.1.5
+reportlab>=5.0.0
+numpy>=1.26.0
+
+# AI Face Recognition (Optional: Commented out by default to prevent pip compile errors on machines without C++ compilers)
+# To use real face recognition, install cmake and compiler packages on your OS, then uncomment these:
+# opencv-python-headless>=4.8.0.0
+# face_recognition>=1.3.0
