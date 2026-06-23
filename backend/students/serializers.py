@@ -50,7 +50,7 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
         fields = ['student_id', 'full_name', 'gender', 'dob', 'section', 'images']
 
     def validate_images(self, value):
-        required_angles = ['front', 'left', 'right', 'up', 'down']
+        required_angles = ['front', 'left', 'right', 'up', 'down', 'tilt']
         if not isinstance(value, dict):
             raise serializers.ValidationError("Images must be a dictionary of angle-base64 mappings.")
             

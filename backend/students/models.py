@@ -55,6 +55,7 @@ class FaceEncoding(models.Model):
         ('right', 'Right profile'),
         ('up', 'Slightly up'),
         ('down', 'Slightly down'),
+        ('tilt', 'Slight tilt'),
     ]
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='encodings')
     encoding = models.JSONField()  # Stored as a list of 128 floats

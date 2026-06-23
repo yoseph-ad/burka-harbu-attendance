@@ -32,15 +32,17 @@ const Registration = () => {
     { id: 'left', label: 'Left Profile' },
     { id: 'right', label: 'Right Profile' },
     { id: 'up', label: 'Slightly Up' },
-    { id: 'down', label: 'Slightly Down' }
+    { id: 'down', label: 'Slightly Down' },
+    { id: 'tilt', label: 'Slight Tilt' }
   ];
-  
+
   const [images, setImages] = useState({
     front: null,
     left: null,
     right: null,
     up: null,
-    down: null
+    down: null,
+    tilt: null
   });
 
   const [activeAngle, setActiveAngle] = useState('front');
@@ -228,7 +230,7 @@ const Registration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isFormValid()) {
-      setError('Please fill in all student details and capture all 5 face angles.');
+      setError('Please fill in all student details and capture all 6 face angles.');
       return;
     }
 
@@ -413,7 +415,7 @@ const Registration = () => {
               
               {!isFormValid() && (
                 <p style={{ color: 'var(--text-secondary)', fontSize: '11px', textAlign: 'center', marginTop: '10px' }}>
-                  Please complete the form and capture all 5 face angles to register.
+                  Please complete the form and capture all 6 face angles to register.
                 </p>
               )}
             </div>
@@ -502,7 +504,7 @@ const Registration = () => {
             {/* Angle Preview Thumbnails Grid */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(5, 1fr)',
+              gridTemplateColumns: 'repeat(6, 1fr)',
               gap: '8px',
               marginTop: '10px'
             }}>

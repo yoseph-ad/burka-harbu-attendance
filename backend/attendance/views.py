@@ -122,8 +122,8 @@ class ScanAttendanceView(APIView):
                 status=status.HTTP_200_OK  # Return 200 OK so the kiosk loop continues without error
             )
 
-        # 3. Match the detected encoding against known encodings
-        matched_student_id = match_face(detected_encoding, known_encodings_dict, tolerance=0.55)
+        # 3. Match the detected encoding against known encodings (cosine similarity)
+        matched_student_id = match_face(detected_encoding, known_encodings_dict)
         
         if not matched_student_id:
             return Response(

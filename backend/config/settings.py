@@ -135,6 +135,10 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Directory for ML model weights (YuNet + SFace ONNX). Fetched at build/runtime,
+# not committed to the repo (see students.face_service.download_models).
+ML_MODELS_DIR = BASE_DIR / 'ml_models'
+
 
 # REST Framework Configuration
 REST_FRAMEWORK = {

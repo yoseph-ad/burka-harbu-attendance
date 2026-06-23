@@ -6,4 +6,5 @@ pip install -r requirements.txt
 
 python manage.py collectstatic --no-input
 python manage.py migrate
+python manage.py download_face_models
 python manage.py reset_admin
