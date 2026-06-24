@@ -440,15 +440,20 @@ const Registration = () => {
               alignItems: 'center',
               justifyContent: 'center'
             }}>
+              <video 
+                ref={videoRef} 
+                autoPlay 
+                playsInline 
+                muted 
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'cover',
+                  display: cameraActive ? 'block' : 'none'
+                }}
+              />
               {cameraActive ? (
                 <>
-                  <video 
-                    ref={videoRef} 
-                    autoPlay 
-                    playsInline 
-                    muted 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
                   <div className="scan-laser" />
                   <div style={{
                     position: 'absolute',

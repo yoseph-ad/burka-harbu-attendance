@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Camera, CheckCircle, XCircle, AlertTriangle, ArrowLeft, Shield } from 'lucide-react';
+import { Camera, CheckCircle, XCircle, AlertTriangle, ArrowLeft, Shield, Loader2 } from 'lucide-react';
 import { attendanceService, studentService } from '../services/api';
 
 const KioskScan = () => {
@@ -349,16 +349,21 @@ const KioskScan = () => {
             border: '3px solid #223762',
             boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
           }}>
+            <video 
+              ref={videoRef} 
+              autoPlay 
+              playsInline 
+              muted 
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover', 
+                transform: 'scaleX(-1)',
+                display: cameraActive ? 'block' : 'none'
+              }}
+            />
             {cameraActive ? (
               <>
-                <video 
-                  ref={videoRef} 
-                  autoPlay 
-                  playsInline 
-                  muted 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scaleX(-1)' }}
-                />
-                
                 {/* Laser Overlay animation */}
                 {scanningStatus === 'SCANNING' && (
                   <>
