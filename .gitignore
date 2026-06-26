@@ -1,11 +1,12 @@
 venv/
 backend/venv/
-backend/__pycache__/
-backend/*.pyc
+**/__pycache__/
+**/*.pyc
 backend/db.sqlite3
 backend/.env
 backend/staticfiles/
 backend/ml_models/
+backend/media/
 frontend/node_modules/
 frontend/dist/
 frontend/.env.local

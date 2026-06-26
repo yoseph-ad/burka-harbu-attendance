@@ -137,7 +137,7 @@ const KioskScan = () => {
 
   // Process matching responses
   const handleScanResponse = (data) => {
-    if (data.status === 'SUCCESS') {
+    if (data.status === 'SUCCESS' || data.status === 'SUCCESSFUL') {
       playSound('success');
       setScanningStatus('SUCCESS');
       setScanResult(data);
@@ -148,7 +148,7 @@ const KioskScan = () => {
         setScanResult(null);
       }, 3500);
 
-    } else if (data.status === 'ALREADY_MARKED') {
+    } else if (data.status === 'ALREADY_MARKED' || data.status === 'ALREADY_PRESENT') {
       playSound('warning');
       setScanningStatus('ALREADY_MARKED');
       setScanResult(data);
@@ -205,7 +205,7 @@ const KioskScan = () => {
       
       const todayStr = new Date().toISOString();
       const mockReply = {
-        status: 'SUCCESS',
+        status: 'SUCCESSFUL',
         message: `Welcome, ${student.full_name}! Attendance recorded.`,
         student: {
           full_name: student.full_name,
