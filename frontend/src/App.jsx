@@ -11,6 +11,7 @@ import Registration from './pages/Registration';
 import TeacherManagement from './pages/TeacherManagement';
 import Reports from './pages/Reports';
 import KioskScan from './pages/KioskScan';
+import KioskLogin from './pages/KioskLogin';
 import Students from './pages/Students';
 import { authService } from './services/api';
 
@@ -27,12 +28,19 @@ const AdminRoute = ({ children, user }) => {
   return user && user.role === 'ADMIN' ? children : <Navigate to="/dashboard" replace />;
 };
 
+// Kiosk or Admin Route Wrapper
+const KioskOrAdminRoute = ({ children, user }) => {
+  const token = localStorage.getItem('access_token');
+  if (!token) return <Navigate to="/kiosk/login" replace />;
+  return user && (user.role === 'ADMIN' || user.role === 'KIOSK_DEVICE') ? children : <Navigate to="/dashboard" replace />;
+};
+
 const NavigationWrapper = ({ user, setUser, theme, toggleTheme }) => {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // Hide sidebar on Login and Kiosk scan pages
-  const isKiosk = location.pathname === '/kiosk';
+  const isKiosk = location.pathname === '/kiosk' || location.pathname === '/kiosk/login';
   const isLogin = location.pathname === '/login';
 
   if (isLogin || isKiosk) return null;
@@ -314,10 +322,12 @@ function App() {
             } />
 
             <Route path="/kiosk" element={
-              <AdminRoute user={user}>
+              <KioskOrAdminRoute user={user}>
                 <KioskScan />
-              </AdminRoute>
+              </KioskOrAdminRoute>
             } />
+
+            <Route path="/kiosk/login" element={user ? <Navigate to="/kiosk" replace /> : <KioskLogin setUser={setUser} />} />
 
             {/* Fallback route */}
             <Route path="*" element={<Navigate to="/" replace />} />

@@ -32,3 +32,14 @@ class IsAdminOrTeacher(permissions.BasePermission):
             request.user.is_authenticated and 
             request.user.role in ['ADMIN', 'TEACHER']
         )
+
+class IsKioskOrAdmin(permissions.BasePermission):
+    """
+    Allows access only to kiosk device accounts or admins.
+    """
+    def has_permission(self, request, view):
+        return (
+            request.user and 
+            request.user.is_authenticated and 
+            request.user.role in ['ADMIN', 'KIOSK_DEVICE']
+        )

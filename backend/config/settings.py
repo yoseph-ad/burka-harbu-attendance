@@ -135,6 +135,40 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Multi-Environment Storage Configuration
+if os.getenv('VERCEL'):
+    # Enable django-storages dynamically in production
+    if 'storages' not in INSTALLED_APPS:
+        INSTALLED_APPS.append('storages')
+
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_ENDPOINT_URL = os.getenv('AWS_S3_ENDPOINT_URL')
+    AWS_QUERYSTRING_AUTH = False
+    
+    # Direct public URL domain resolution structure
+    SUPABASE_REF = os.getenv('SUPABASE_REF')
+    AWS_S3_CUSTOM_DOMAIN = f"{SUPABASE_REF}.supabase.co/storage/v1/object/public/{AWS_STORAGE_BUCKET_NAME}"
+    
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+else:
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
+
 # Directory for ML model weights (YuNet + SFace ONNX). Fetched at build/runtime,
 # not committed to the repo (see students.face_service.download_models).
 ML_MODELS_DIR = BASE_DIR / 'ml_models'

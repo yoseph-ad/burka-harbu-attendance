@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 import numpy as np
 from django.conf import settings
 
-from accounts.permissions import IsAdminOrTeacher, IsAdminUser
+from accounts.permissions import IsAdminOrTeacher, IsAdminUser, IsKioskOrAdmin
 from students.models import Student, FaceEncoding, TeacherAssignment
 from .models import AttendanceRecord
 from .serializers import AttendanceRecordSerializer, ScanAttendanceSerializer
@@ -90,7 +90,7 @@ class AttendanceRecordViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK if not created else status.HTTP_201_CREATED)
 
 class ScanAttendanceView(APIView):
-    permission_classes = [IsAuthenticated]  # The kiosk frontend will be logged in (typically as admin or kiosk user)
+    permission_classes = [IsAuthenticated, IsKioskOrAdmin]  # Enforce authenticated kiosk or admin user
 
     def post(self, request):
         # Cleanly check for active session/authentication
